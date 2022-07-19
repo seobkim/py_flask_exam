@@ -57,3 +57,25 @@ environment is outside the scope of Django.)
 ### 서비스는 초기 상태이며 wsgi를 사용안해도 되지 않을까
 - 우선 wsgi를 이해하기에 앞서 CGI(Common Gateway Interface) 에 대한 이해가 필요하다. CGI는 앞에서 언급한 웹 서버와 was 사이의 interface를 제공한다. interface에 대해 가볍게 이해하기 위해서 웹 서버 종류에는 아파치, 엔진x 가 있고 파이썬 웹 프레임 워크에는 Python, Django 가 있고 더 많은 종류들이 있는데 이를 연결하는 하나의 규약을 제공하여 다른 프레임워크를 사용하게 되더라도 연결하는데 불편하지 않게 하기 위함이다. 또 연결만 도와 주는 것이 아닌 프로세스/ 쓰레드에 대해 설정 및 멀티쓰레드, 서버가 죽었을때 다시 키는 환경을 제공한다.
 
+### wsgi를 사용하는 이유에 대해 알았는데 추가적인 로드 밸런싱 툴인 nginx를 사용해야 할까?
+
+물론 wsgi를 사용하게 된다면 웹 프레임워크로서의 기능을 수행할 수 있게 된다. 하지만 wsgi는 ssl과 정적인 파일을 지원하지 않는다. (uwsgi 는 지원하나 cpu를 많이 먹는다.) 따라서 정적인 파일을 지원하기 위해 nginx를 사용한다. 또한 wsgi 에서 uwsgi는 유닉스 소켓을 지원한다. 유닉스 소켓을 사용하는 이유는 다음과 같다.
+
+```
+a Unix socket is preferable because it is faster and more secure.
+nginx에는 유닉스 소켓을 연결을 지원하기 때문에 더 빠르고 안전하게 서비스를 제공 할 수 있게 되는 것이다.
+```
+
+### nginx의 로드 밸런싱 말고 다른 기능은 뭐가 있을까?
+도메인 라우팅 관리
+정적 파일 제공
+로드 밸런싱,캐싱
+HTTPS 구현 용이 정도가 있다.
+### 웹 서버 아파치 , 엔진x 중에서 왜 엔진x를 사용?
+
+대부분의 사이트들에서 even-driven 과 멀티 프로세싱 모듈 을 비교하며 성능으로 nginx를 사용한다고 명시한다. 하지만 프로그래밍 언어중에서 C가 제일 빠르고 C로만 구현하는 것이 아닌 것처럼 각 상황에 맞는 웹 서버를 고르는 것을 추천
+
+
+참고
+https://cornswrold.tistory.com/429
+https://uiandwe.tistory.com/1268
