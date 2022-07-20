@@ -79,3 +79,5 @@ HTTPS 구현 용이 정도가 있다.
 참고
 https://cornswrold.tistory.com/429
 https://uiandwe.tistory.com/1268
+
+https://velog.io/@denhur62/nginx-%EC%99%80-uwsgi%EB%A5%BC-%EC%99%9C-%EC%82%AC%EC%9A%A9%ED%95%A0%EA%B9%8C
